@@ -9,7 +9,9 @@ import { eq, and, desc, asc, or, like, inArray, isNull, isNotNull } from "drizzl
 import { db } from "@db";
 
 // JWT Secret - should ideally be in environment variables
-const JWT_SECRET = process.env.JWT_SECRET || "adonai_grace_school_secret";
+const JWT_SECRET = process.env.JWT_SECRET || (() => {
+  throw new Error('JWT_SECRET environment variable is required');
+})();
 
 // Authentication middleware
 const authenticate = (req: Request, res: Response, next: Function) => {
