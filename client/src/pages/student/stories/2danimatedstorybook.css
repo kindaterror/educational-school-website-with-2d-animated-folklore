@@ -1,0 +1,1358 @@
+/* ================== LAYOUT PERSISTENCE & RESOLUTION CONSISTENCY ================== */
+:root {
+  /* Base variables for standard screens */
+  --popup-book-width: 75vw;
+  --popup-book-height: 85vh;
+  --popup-book-min-height: 700px;
+  --popup-book-left: 49.4%;
+  --popup-book-top: 49%;
+  --popup-book-rotate-x: 30deg;
+  --popup-book-rotate-y: 0deg;
+  --popup-book-perspective: 5000px;
+}
+
+/* IMPROVED MULTI-MONITOR RESPONSIVE BREAKPOINTS */
+/* Large monitors (1440p and above) */
+@media screen and (min-width: 1920px) {
+  :root {
+    --popup-book-width: 60vw;
+    --popup-book-height: 80vh;
+    --popup-book-min-height: 800px;
+    --popup-book-left: 50%;
+    --popup-book-top: 48%;
+  }
+}
+
+/* NEW: For monitors around 2560px width */
+@media screen and (min-width: 2200px) and (max-width: 2800px) {
+  :root {
+    --popup-book-width: 65vw !important;
+    --popup-book-height: 85vh !important;
+    --popup-book-min-height: 950px !important;
+  }
+  
+  /* YOUR REQUESTED UPDATES */
+  .popup-open-book-wrapper {
+    max-width: none !important;
+    width: 90vw !important;
+  }
+  
+  .popup-flip-book-container {
+    width: 55vw !important;
+    height: 70vh !important;
+  }
+  
+  .popup-floating-dialog-container {
+    top: 76% !important;
+    left: 17% !important;
+    width: 56% !important;
+  }
+}
+
+/* Extra large monitors (4K and ultrawide) */
+@media screen and (min-width: 2560px) {
+  :root {
+    --popup-book-width: 50vw;
+    --popup-book-height: 75vh;
+    --popup-book-min-height: 900px;
+    --popup-book-left: 50%;
+    --popup-book-top: 47%;
+  }
+}
+
+/* NEW: For very large monitors (2800px and above) */
+@media screen and (min-width: 2800px) {
+  :root {
+    --popup-book-width: 70vw !important;
+    --popup-book-height: 90vh !important;
+    --popup-book-min-height: 1000px !important;
+  }
+}
+
+/* ULTRA-WIDE MONITOR SUPPORT */
+@media screen and (min-aspect-ratio: 21/9) {
+  :root {
+    --popup-book-width: 45vw;
+    --popup-book-height: 70vh;
+    --popup-book-min-height: 800px;
+  }
+  
+  .popup-flip-book-container {
+    width: 45vw !important;
+    height: 65vh !important;
+  }
+  
+  .popup-floating-dialog-container {
+    top: 78% !important;
+    left: 20% !important;
+    width: 50% !important;
+  }
+}
+
+/* Small laptops and tablets */
+@media screen and (max-width: 1366px) {
+  :root {
+    --popup-book-width: 80vw;
+    --popup-book-height: 85vh;
+    --popup-book-min-height: 600px;
+    --popup-book-left: 49.5%;
+    --popup-book-top: 50%;
+  }
+}
+
+/* ================== VIEWPORT UNITS FOR CONSISTENCY ================== */
+.popup-book-reader-container {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* ================== 3D POPUP BOOK CONTAINER SETUP ================== */
+.popup-book-container {
+  position: relative;
+  perspective: 2010px;
+  perspective-origin: center 30%;
+  width: 80%;
+  height: 500px !important;
+  margin: 0 auto;
+  min-width: 900px;
+  max-width: 1400px;
+}
+
+/* ENHANCED LARGE SCREEN SUPPORT */
+@media screen and (min-width: 2200px) and (max-width: 2800px) {
+  .popup-book-container {
+    min-width: 1000px !important;
+    max-width: 1600px !important;
+    width: 90% !important;
+    height: 600px !important;
+  }
+}
+
+@media screen and (min-width: 2800px) {
+  .popup-book-container {
+    min-width: 1100px !important;
+    max-width: 1800px !important;
+    width: 95% !important;
+    height: 650px !important;
+  }
+}
+
+/* NORMAL VIEW ONLY */
+.popup-flip-book-container:not(.book-fullscreen-mode .popup-flip-book-container) {
+  width: 85%;
+  height: 500px !important;
+  max-width: 1000px !important;
+  margin: 0 auto;
+  transform-style: preserve-3d;
+  transform: 
+    perspective(2010px)   
+    rotateX(35deg)        
+    rotateY(0deg)         
+    translateZ(13.4px)    
+    translateY(30px) !important;
+  transition: transform 0.5s ease;
+}
+
+/* ENHANCED SCALING FOR LARGE MONITORS */
+@media screen and (min-width: 1920px) {
+  .popup-flip-book-container:not(.book-fullscreen-mode .popup-flip-book-container) {
+    height: 600px !important;
+  }
+}
+
+@media screen and (min-width: 2200px) and (max-width: 2800px) {
+  .popup-flip-book-container:not(.book-fullscreen-mode .popup-flip-book-container) {
+    width: 95% !important;
+    max-width: 1100px !important;
+    min-width: 1000px !important;
+    height: 600px !important;
+  }
+}
+
+@media screen and (min-width: 2800px) {
+  .popup-flip-book-container:not(.book-fullscreen-mode .popup-flip-book-container) {
+    width: 100% !important;
+    max-width: 1200px !important;
+    min-width: 1100px !important;
+    height: 650px !important;
+  }
+}
+
+/* SPECIFIC SCALING FIX FOR YOUR SECOND MONITOR SIZE */
+@media screen and (min-width: 2500px) and (max-width: 3000px) {
+  .popup-flip-book-container:not(.book-fullscreen-mode .popup-flip-book-container) {
+    transform: 
+      perspective(2010px)   
+      rotateX(35deg)        
+      rotateY(0deg)         
+      translateZ(13.4px)    
+      translateY(35px) 
+      scale(1.2) !important;
+  }
+}
+
+.popup-book-wrapper {
+  width: 90%;
+  height: 510px !important;
+  background-color: #E6D7C3;
+  border-radius: 0.5rem;
+  box-shadow: 
+    0 40px 80px rgba(26, 35, 126, 0.35),
+    0 25px 50px rgba(26, 35, 126, 0.3), 
+    0 15px 30px rgba(26, 35, 126, 0.25); 
+  transform-style: preserve-3d;
+  transition: transform 0.7s;
+  position: relative;
+  border-bottom: 12px solid rgba(139, 69, 19, 1);
+  border-left: 4px solid rgba(139, 69, 19, 0.8);
+  border-right: 4px solid rgba(139, 69, 19, 0.8);
+  overflow: visible;
+  display: flex;
+  transform: translateY(-10px);
+  margin: 0 auto;
+}
+
+/* ENHANCED BOOK WRAPPER FOR LARGE SCREENS */
+@media screen and (min-width: 1920px) {
+  .popup-book-wrapper {
+    height: 610px !important;
+    min-height: 610px !important;
+  }
+}
+
+@media screen and (min-width: 2200px) {
+  .popup-book-wrapper {
+    height: 610px !important;
+    min-height: 610px !important;
+  }
+}
+
+@media screen and (min-width: 2800px) {
+  .popup-book-wrapper {
+    height: 660px !important;
+    min-height: 660px !important;
+  }
+}
+
+/* ================== POPUP BOOK ANIMATION STYLES ================== */
+.popup-page-left {
+  width: 50% !important;
+  height: 100% !important;
+  position: relative !important;
+  transform: none !important;
+  transition: none !important;
+  z-index: 1;
+  border-right: 2px solid rgba(139, 69, 19, 0.3);
+}
+
+.popup-page-right {
+  width: 50% !important;
+  height: 100% !important;
+  position: relative !important;
+  transform-origin: left center !important;
+  transition: transform 1s ease-in-out !important;
+  z-index: 2;
+  border-left: 2px solid rgba(139, 69, 19, 0.3);
+  will-change: transform;
+  transform-style: preserve-3d;
+}
+
+.popup-page-right.flipped {
+  transform: rotateY(-180deg) !important;
+}
+
+.popup-page-right:not(.flipped) {
+  transform: rotateY(0deg) !important;
+}
+
+.popup-floating-illustrations {
+  transition: opacity 0.3s ease;
+}
+
+.popup-floating-dialog-container {
+  transition: opacity 0.3s ease;
+}
+
+.popup-book-animating .popup-floating-illustrations {
+  opacity: 0 !important;
+}
+
+.popup-book-animating .popup-floating-dialog-container {
+  opacity: 0 !important;
+}
+
+/* ================== END POPUP BOOK ANIMATION STYLES ================== */
+
+.popup-book-page-left {
+  transform-origin: right center;
+  transform: rotateY(0deg) rotateX(0deg) translateY(0px) translateZ(0px);
+}
+
+.popup-book-page-right {
+  transform-origin: left center;
+  transform: rotateY(180deg) rotateX(0deg) translateY(0px) translateZ(0px);
+}
+
+.popup-book-fold {
+  position: absolute;
+  height: 100%;
+  width: 4px;
+  left: 50%;
+  top: 0;
+  transform: translateX(-50%);
+  background: linear-gradient(to bottom,
+    rgba(139, 69, 19, 0.8) 0%,
+    rgba(139, 69, 19, 0.6) 50%,
+    rgba(139, 69, 19, 0.8) 100%);
+  z-index: 10;
+  border-radius: 2px;
+}
+
+.popup-book-fold::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 2px;
+  height: 100%;
+  background: linear-gradient(to bottom,
+    rgba(139, 69, 19, 0.8) 0%,
+    rgba(139, 69, 19, 0.6) 50%,
+    rgba(139, 69, 19, 0.8) 100%);
+  box-shadow: 
+    0 0 2px rgba(139, 69, 19, 0.5);
+}
+
+.popup-book-fold::after {
+  content: '';
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 1px;
+  height: calc(100% - 40px);
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(139, 69, 19, 0.8) 0px,
+    rgba(139, 69, 19, 0.8) 3px,
+    transparent 3px,
+    transparent 8px
+  );
+}
+
+.popup-book-surface {
+  position: absolute;
+  bottom: -35px;
+  left: 50%;
+  transform: translateX(-50%) rotateX(90deg);
+  width: 90%;
+  height: 85px;
+  background: 
+    radial-gradient(ellipse at center, 
+      rgba(26, 35, 126, 0.2) 0%,
+      rgba(26, 35, 126, 0.12) 50%,
+      transparent 90%);
+  border-radius: 50%;
+  z-index: -1;
+}
+
+/* ================== POPUP NAVIGATION BUTTONS ================== */
+.popup-page-nav-left {
+  position: absolute;
+  left: 5%;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.4s ease;
+  z-index: 25;
+  box-shadow: 
+    0 4px 15px rgba(255, 255, 255, 0.1),
+    0 2px 8px rgba(26, 35, 126, 0.15);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  opacity: 0.6;
+}
+
+.popup-page-nav-right {
+  position: absolute;
+  right: 5%;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.4s ease;
+  z-index: 25;
+  box-shadow: 
+    0 4px 15px rgba(255, 255, 255, 0.1),
+    0 2px 8px rgba(26, 35, 126, 0.15);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  opacity: 0.6;
+}
+
+.popup-page-nav-left:hover,
+.popup-page-nav-right:hover {
+  background: rgba(255, 255, 255, 0.35);
+  border-color: rgba(255, 255, 255, 0.5);
+  transform: translateY(-50%) scale(1.1);
+  opacity: 1;
+  box-shadow: 
+    0 8px 25px rgba(255, 255, 255, 0.2),
+    0 4px 15px rgba(26, 35, 126, 0.25),
+    0 0 20px rgba(244, 180, 0, 0.3);
+}
+
+.popup-page-nav-left:disabled,
+.popup-page-nav-right:disabled {
+  opacity: 0.2;
+  cursor: not-allowed;
+  transform: translateY(-50%) scale(0.9);
+  background: rgba(200, 200, 200, 0.1);
+  border-color: rgba(255, 255, 255, 0.1);
+  box-shadow: none;
+}
+
+.popup-page-nav-left svg,
+.popup-page-nav-right svg {
+  color: #FDFDFD;
+  transition: all 0.3s ease;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.3));
+}
+
+.popup-page-nav-left:hover svg,
+.popup-page-nav-right:hover svg {
+  color: #F4B400;
+  transform: scale(1.1);
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.4));
+}
+
+.popup-page-nav-left:disabled svg,
+.popup-page-nav-right:disabled svg {
+  color: rgba(255, 255, 255, 0.3);
+  transform: none;
+}
+
+/* ================== POPUP GLASS NAVIGATION ================== */
+.popup-glass-nav-container {
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  transition: all 0.3s ease;
+  position: relative;
+  z-index: 100;
+  transform: translateZ(10px);
+}
+
+.popup-glass-nav-container:hover {
+  background: rgba(255, 255, 255, 0.15);
+  box-shadow: 
+    0 12px 40px rgba(0, 0, 0, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  transform: translateY(-2px) translateZ(10px);
+}
+
+.popup-nav-btn-glass {
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.2) !important;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: #1A237E !important;
+  font-weight: 600;
+  box-shadow: 
+    0 4px 15px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.popup-nav-btn-glass:hover {
+  background: rgba(255, 255, 255, 0.3) !important;
+  border-color: rgba(255, 255, 255, 0.5);
+  box-shadow: 
+    0 8px 25px rgba(0, 0, 0, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  transform: translateY(-1px) scale(1.05);
+}
+
+.popup-nav-btn-glass:disabled {
+  background: rgba(107, 114, 128, 0.2) !important;
+  border-color: rgba(255, 255, 255, 0.1);
+  color: rgba(26, 35, 126, 0.4) !important;
+  transform: none !important;
+  cursor: not-allowed;
+}
+
+.popup-glass-nav-container .text-blue-900 {
+  color: #1A237E !important;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+}
+
+/* ================== POPUP BOOK READER STYLES ================== */
+.popup-progress-bar {
+  @apply h-2 bg-gray-200 rounded-full overflow-hidden;
+}
+
+.popup-progress-value {
+  @apply h-full bg-secondary rounded-full;
+}
+
+.popup-book-reader-fullscreen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 50;
+  background-color: #1A237E;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+}
+
+/* ================== LOCKED FULLSCREEN LAYOUT ================== */
+.book-fullscreen-mode .popup-flip-book-container {
+  width: var(--popup-book-width) !important;
+  height: var(--popup-book-height) !important;
+  max-width: none !important;
+  min-height: var(--popup-book-min-height) !important;
+  position: absolute !important;
+  left: var(--popup-book-left) !important;
+  top: var(--popup-book-top) !important;
+  transform: 
+    perspective(var(--popup-book-perspective))   
+    rotateX(var(--popup-book-rotate-x))
+    rotateY(var(--popup-book-rotate-y))
+    rotateZ(0deg)         
+    translateZ(40px)      
+    translateX(-50%)
+    translateY(-50%) !important;
+  margin: 0 !important;
+  transform-origin: center center !important;
+  aspect-ratio: 4/3;
+  min-width: 1000px;
+  max-width: 1200px;
+  transition: all 0.3s ease-in-out;
+}
+
+.book-fullscreen-mode .popup-open-book-wrapper {
+  padding: 0 !important;
+  margin: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  background-color: #1A237E !important;
+}
+
+.book-fullscreen-mode {
+  padding: 0 !important;
+  margin: 0 !important;
+  background-color: #1A237E !important;
+}
+
+.book-fullscreen-mode * {
+  background-color: transparent !important;
+}
+
+.book-fullscreen-mode .popup-book-wrapper {
+  background-color: #E6D7C3 !important;
+  min-height: 500px !important;
+  max-height: 700px !important;
+  height: 100% !important;
+  width: 100% !important;
+  aspect-ratio: 2/1;
+}
+
+/* FULLSCREEN DIALOG POSITIONING - IMPROVED MULTI-MONITOR RESPONSIVE */
+.book-fullscreen-mode .popup-floating-dialog-container {
+  position: absolute !important;
+  top: 70% !important;        /* Match normal view */
+  left: 22.7% !important;     /* Match normal view */
+  width: 70% !important;      /* Match your JavaScript width */
+  max-width: 800px !important; /* Match your JavaScript maxWidth */
+  background: #FFFFFF !important;
+  z-index: 1000 !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  padding: 22px 30px 19px 30px !important;
+  border-radius: 18px !important;
+  transform: translateZ(25px) !important;
+  box-shadow: 
+    0 6px 25px rgba(0, 0, 0, 0.12),  
+    0 3px 12px rgba(0, 0, 0, 0.08),
+    0 2px 6px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* IMPROVED FULLSCREEN DIALOG RESPONSIVE POSITIONING */
+@media screen and (min-width: 1920px) {
+  .book-fullscreen-mode .popup-floating-dialog-container {
+    top: 70% !important;
+    left: 20% !important;
+    width: 60% !important;
+  }
+}
+
+@media screen and (min-width: 2560px) {
+  .book-fullscreen-mode .popup-floating-dialog-container {
+    top: 72% !important;
+    left: 22% !important;
+    width: 56% !important;
+  }
+}
+
+@media screen and (min-width: 3440px) {
+  .book-fullscreen-mode .popup-floating-dialog-container {
+    top: 74% !important;
+    left: 24% !important;
+    width: 52% !important;
+  }
+}
+
+.book-fullscreen-mode .popup-floating-dialog-container:hover {
+  background: #FFFFFF !important;
+}
+
+/* LARGER TEXT IN FULLSCREEN */
+.book-fullscreen-mode .popup-floating-dialog-container .story-title {
+  font-size: 20px !important;
+  margin-bottom: -10px !important;
+}
+
+.book-fullscreen-mode .popup-floating-dialog-container .narration-text {
+  font-size: 17px !important;
+  line-height: 1.5 !important;
+  margin-bottom: -10px !important;
+}
+
+.book-fullscreen-mode .popup-floating-dialog-container .dialog-text {
+  font-size: 16px !important;
+  line-height: 1.4 !important;
+}
+
+/* BIGGER SIDE NAVIGATION BUTTONS IN FULLSCREEN */
+.book-fullscreen-mode .popup-page-nav-left,
+.book-fullscreen-mode .popup-page-nav-right {
+  width: 70px !important;
+  height: 70px !important;
+  left: 3% !important;
+}
+
+.book-fullscreen-mode .popup-page-nav-right {
+  right: 3% !important;
+  left: auto !important;
+}
+
+.book-fullscreen-mode .popup-page-nav-left svg,
+.book-fullscreen-mode .popup-page-nav-right svg {
+  width: 32px !important;
+  height: 32px !important;
+} 
+
+/* ================== LOCKED FULLSCREEN FLOATING ILLUSTRATIONS ================== */
+.book-fullscreen-mode .popup-floating-illustration.scene-illustration {
+  top: 1% !important;
+  left: 16.2% !important;
+  width: 69% !important;
+  height: 83% !important;
+  transform: matrix3d(1,0,0,0, 0,1,0,0, 0,0,1,0, 0,-25,0,1) !important;
+  border-radius: 20px 20px 0 0 !important;
+}
+
+/* IMPROVED FULLSCREEN ILLUSTRATIONS RESPONSIVE */
+@media screen and (min-width: 1920px) {
+  .book-fullscreen-mode .popup-floating-illustration.scene-illustration {
+    left: 25% !important;
+    width: 50% !important;
+  }
+}
+
+@media screen and (min-width: 2560px) {
+  .book-fullscreen-mode .popup-floating-illustration.scene-illustration {
+    left: 27% !important;
+    width: 46% !important;
+  }
+}
+
+@media screen and (min-width: 3440px) {
+  .book-fullscreen-mode .popup-floating-illustration.scene-illustration {
+    left: 29% !important;
+    width: 42% !important;
+  }
+}
+
+.book-fullscreen-mode .popup-floating-illustration.character-illustration {
+  top: 8% !important;
+  left: 15% !important;
+  width: 25% !important;
+  height: 35% !important;
+  transform: matrix3d(1,0,0,0, 0,1,0,0, 0,0,1,0, 0,-25,0,1) !important;
+  border-radius: 18px 18px 0 0 !important;
+}
+
+.book-fullscreen-mode .popup-floating-illustration.object-illustration {
+  top: 8% !important;
+  right: 5% !important;
+  left: auto !important;
+  width: 25% !important;
+  height: 35% !important;
+  transform: matrix3d(1,0,0,0, 0,1,0,0, 0,0,1,0, 0,-25,0,1) !important;
+  border-radius: 18px 18px 0 0 !important;
+}
+
+/* ================== POPUP PAGE FLIP ANIMATIONS ================== */
+.popup-page-wrapper {
+  position: relative;
+  transform-style: preserve-3d;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.8s cubic-bezier(0.24, 0.78, 0.25, 0.95);
+}
+
+.popup-page-wrapper.flipping {
+  transform: rotateY(-180deg);
+  transition-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.popup-page-side {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  transform-style: preserve-3d;
+  border-radius: 8px;
+  box-shadow: 
+    0 12px 40px rgba(26, 35, 126, 0.15), 
+    0 6px 20px rgba(26, 35, 126, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5);
+  will-change: transform;
+  overflow: visible;
+}
+
+.popup-page-front {
+  z-index: 1;
+  background-color: #E6D7C3;
+  background-image: 
+    linear-gradient(to right, rgba(244, 180, 0, 0.02) 0%, rgba(244, 180, 0, 0) 5%),
+    linear-gradient(to bottom, rgba(244, 180, 0, 0.02) 0%, rgba(244, 180, 0, 0) 5%);
+}
+
+.popup-page-back {
+  background-color: #E6D7C3;
+  background-image: 
+    linear-gradient(to left, rgba(244, 180, 0, 0.02) 0%, rgba(244, 180, 0, 0) 5%),
+    linear-gradient(to bottom, rgba(244, 180, 0, 0.02) 0%, rgba(244, 180, 0, 0) 5%);
+}
+
+.popup-page-shadow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 5;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.popup-page-wrapper.flipping .popup-page-shadow {
+  opacity: 0.6;
+  background: 
+    linear-gradient(to right, 
+      rgba(26, 35, 126, 0.1) 0%,
+      rgba(26, 35, 126, 0) 25%),
+    radial-gradient(
+      ellipse at center, 
+      rgba(26, 35, 126, 0.25) 0%,
+      rgba(26, 35, 126, 0) 80%
+    );
+}
+
+.popup-page-curl {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 50px;
+  height: 50px;
+  background: linear-gradient(135deg, transparent 50%, rgba(26, 35, 126, 0.1) 50%);
+  border-radius: 0 0 8px 0;
+}
+
+.popup-page-number {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: 'Comic Sans MS', sans-serif;
+  font-size: 12px;
+  color: #666;
+  font-weight: bold;
+}
+
+/* ================== POPUP FLOATING ILLUSTRATIONS ================== */
+.popup-floating-illustrations {
+  position: fixed !important;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 20;
+  pointer-events: none;
+  transform: none !important;
+  transform-style: flat !important;
+  perspective: none !important;
+}
+
+.popup-floating-illustration {
+  position: absolute;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  transform: translateY(-25px) !important;
+  transform-origin: center center !important;
+  opacity: 0;
+  transition: opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
+  transform-style: flat !important;
+  perspective: none !important;
+  box-shadow: 
+    0 25px 60px rgba(0, 0, 0, 0.4),
+    0 15px 35px rgba(0, 0, 0, 0.3),
+    0 8px 20px rgba(0, 0, 0, 0.2);
+  border-radius: 16px 16px 0 0;
+  mask-image: 
+    linear-gradient(to bottom, 
+      rgba(0,0,0,0) 0%,
+      rgba(0,0,0,0.5) 1%,
+      rgba(0,0,0,0.8) 2%,
+      rgba(0,0,0,1) 4%,
+      rgba(0,0,0,1) 92%,
+      rgba(0,0,0,0.8) 96%,
+      rgba(0,0,0,0.4) 98%,
+      rgba(0,0,0,0) 100%
+    ),
+    linear-gradient(to right,
+      rgba(0,0,0,0) 0%,
+      rgba(0,0,0,0.3) 0.5%,
+      rgba(0,0,0,0.6) 1.5%,
+      rgba(0,0,0,0.9) 3%,
+      rgba(0,0,0,1) 5%,
+      rgba(0,0,0,1) 95%,
+      rgba(0,0,0,0.9) 97%,
+      rgba(0,0,0,0.6) 98.5%,
+      rgba(0,0,0,0.3) 99.5%,
+      rgba(0,0,0,0) 100%
+    );
+  -webkit-mask-image: 
+    linear-gradient(to bottom, 
+      rgba(0,0,0,0) 0%, 
+      rgba(0,0,0,0.5) 1%, 
+      rgba(0,0,0,0.8) 2%, 
+      rgba(0,0,0,1) 4%, 
+      rgba(0,0,0,1) 92%, 
+      rgba(0,0,0,0.8) 96%, 
+      rgba(0,0,0,0.4) 98%, 
+      rgba(0,0,0,0) 100%
+    ),
+    linear-gradient(to right,
+      rgba(0,0,0,0) 0%, 
+      rgba(0,0,0,0.3) 0.5%, 
+      rgba(0,0,0,0.6) 1.5%, 
+      rgba(0,0,0,0.9) 3%, 
+      rgba(0,0,0,1) 5%, 
+      rgba(0,0,0,1) 95%, 
+      rgba(0,0,0,0.9) 97%, 
+      rgba(0,0,0,0.6) 98.5%, 
+      rgba(0,0,0,0.3) 99.5%, 
+      rgba(0,0,0,0) 100%
+    );
+  mask-composite: intersect;
+  -webkit-mask-composite: source-in;
+}
+
+.popup-floating-illustration.active {
+  opacity: 1;
+  transform: matrix3d(1,0,0,0, 0,1,0,0, 0,0,1,0, 0,-30,0,1) !important;
+}
+
+.popup-floating-illustration.scene-illustration {
+  top: 2.5% !important;
+  left: 17%;
+  width: 66%;
+  height: 66%;
+  transform: matrix3d(1,0,0,0, 0,1,0,0, 0,0,1,0, 0,-25,0,1) !important;
+  border-radius: 20px 20px 0 0;
+}
+
+.popup-floating-illustration.scene-illustration.active {
+  transform: matrix3d(1,0,0,0, 0,1,0,0, 0,0,1,0, 0,-30,0,1) !important;
+}
+
+.popup-floating-illustration.character-illustration {
+  top: 8%;
+  left: 15%;
+  width: 30%;
+  height: 45%;
+  transform: matrix3d(1,0,0,0, 0,1,0,0, 0,0,1,0, 0,-25,0,1) !important;
+  border-radius: 18px 18px 0 0;
+}
+
+.popup-floating-illustration.character-illustration.active {
+  transform: matrix3d(1,0,0,0, 0,1,0,0, 0,0,1,0, 0,-30,0,1) !important;
+}
+
+.popup-floating-illustration.object-illustration {
+  top: 8%;
+  right: 5%;
+  left: auto;
+  width: 30%;
+  height: 45%;
+  transform: matrix3d(1,0,0,0, 0,1,0,0, 0,0,1,0, 0,-25,0,1) !important;
+  border-radius: 18px 18px 0 0;
+}
+
+.popup-floating-illustration.object-illustration.active {
+  transform: matrix3d(1,0,0,0, 0,1,0,0, 0,0,1,0, 0,-30,0,1) !important;
+}
+
+/* COMPLETELY FLAT POPUP ANIMATION */
+@keyframes popupEntranceCenter {
+  0% {
+    opacity: 0;
+    transform: matrix3d(0.8,0,0,0, 0,0.8,0,0, 0,0,1,0, 0,20,0,1) !important;
+  }
+  50% {
+    opacity: 0.7;
+    transform: matrix3d(0.95,0,0,0, 0,0.95,0,0, 0,0,1,0, 0,-10,0,1) !important;
+  }
+  100% {
+    opacity: 1;
+    transform: matrix3d(1,0,0,0, 0,1,0,0, 0,0,1,0, 0,-30,0,1) !important;
+  }
+}
+
+.popup-entrance-center {
+  animation: popupEntranceCenter 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards !important;
+}
+
+/* ================== POSITIONED DIALOG UNDER ILLUSTRATION ================== */
+.popup-floating-dialog-container {
+  position: absolute;
+  top: 68% !important;
+  left: 22.7%;               
+  width: 54.5%;              
+  background: #FFFFFF;
+  border-radius: 12px;     
+  padding: 8px 24px 16px 24px;
+  box-shadow: 
+    0 4px 20px rgba(0, 0, 0, 0.08),  
+    0 2px 8px rgba(0, 0, 0, 0.04),
+    0 1px 3px rgba(0, 0, 0, 0.06);
+  border: 1px solid rgba(220, 220, 230, 0.6);  
+  z-index: 999;
+  transition: all 0.6s cubic-bezier(0.4, 0.0, 0.2, 1);
+  overflow: hidden;
+  transform: translateZ(20px);
+  max-height: 15.9%;         
+}
+
+/* ENHANCED DIALOG RESPONSIVE POSITIONING FOR LARGE MONITORS */
+@media screen and (min-width: 1920px) {
+  .popup-floating-dialog-container {
+    left: 24% !important;
+    width: 52% !important;
+  }
+}
+
+@media screen and (min-width: 2200px) and (max-width: 2800px) {
+  .popup-floating-dialog-container {
+    left: 20% !important;
+    width: 60% !important;
+    top: 70% !important;
+  }
+}
+
+@media screen and (min-width: 2560px) {
+  .popup-floating-dialog-container {
+    left: 26% !important;
+    width: 48% !important;
+  }
+}
+
+@media screen and (min-width: 2800px) {
+  .popup-floating-dialog-container {
+    left: 18% !important;
+    width: 64% !important;
+    top: 68% !important;
+  }
+}
+
+@media screen and (min-width: 3440px) {
+  .popup-floating-dialog-container {
+    left: 28% !important;
+    width: 44% !important;
+  }
+}
+
+.popup-floating-dialog-container:hover {
+  box-shadow: 
+    0 8px 30px rgba(0, 0, 0, 0.12),  
+    0 4px 12px rgba(0, 0, 0, 0.08),
+    0 2px 6px rgba(0, 0, 0, 0.1);
+  transform: translateY(-1px) translateZ(20px);  
+}
+
+.popup-floating-dialog-container.hidden {
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(10px) translateZ(20px);
+}
+
+.popup-floating-dialog-container .story-content-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  text-align: left;
+  padding: 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.popup-floating-dialog-container .story-title-section {
+  width: 100%;
+  margin-bottom: 4px;
+}
+
+.popup-floating-dialog-container .story-title {
+  font-family: 'Segoe UI', 'Trebuchet MS', 'Arial', sans-serif;
+  font-size: 18px;
+  font-weight: 600;  
+  color: #1A237E;
+  margin: 0;
+  text-align: left;
+  line-height: 1.2;
+}
+
+.popup-floating-dialog-container .narration-section {
+  width: 100%;
+  margin-bottom: 2px;
+}
+
+.popup-floating-dialog-container .narration-text {
+  font-family: 'Segoe UI', 'Trebuchet MS', 'Arial', sans-serif;
+  font-size: 14px;  
+  line-height: 1.3;
+  color: #4A5568;  
+  margin: 0;
+  text-align: left;
+  font-weight: 400;
+}
+
+.popup-floating-dialog-container .dialog-section {
+  width: 100%;
+  background: transparent;
+  border-radius: 0;
+  padding: 0;
+  border: none;
+  margin-top: 0px;
+}
+
+.popup-floating-dialog-container .dialog-text {
+  font-family: 'Segoe UI', 'Trebuchet MS', 'Arial', sans-serif;
+  font-size: 14px;  
+  line-height: 1.2;
+  color: #1A237E;
+  font-style: italic;
+  margin: 0;
+  text-align: left;
+  font-weight: 500;
+}
+
+.popup-floating-dialog-container .dialog-text::before {
+  content: '"';
+  font-size: 16px;  
+  color: #1A237E;
+  font-weight: 500;
+  font-style: italic;
+}
+
+.popup-floating-dialog-container .dialog-text::after {
+  content: '"';
+  font-size: 16px;
+  color: #1A237E;
+  font-weight: 500;
+  font-style: italic;
+}
+
+/* ================== RESPONSIVE BREAKPOINTS WITH LOCKED RATIOS ================== */
+@media (max-width: 1440px) {
+  :root {
+    --popup-book-width: 80vw;
+    --popup-book-height: 85vh;
+    --popup-book-min-height: 650px;
+  }
+}
+
+@media (max-width: 1024px) {
+  :root {
+    --popup-book-width: 85vw;
+    --popup-book-height: 90vh;
+    --popup-book-min-height: 600px;
+    --popup-book-top: 50%;
+  }
+  
+  .popup-flip-book-container {
+    min-height: 500px;
+    transform: 
+      perspective(1340px)   
+      rotateX(25deg)        
+      rotateY(0deg)         
+      translateZ(6.7px)     
+      translateY(-10px);
+  }
+    
+  .popup-book-wrapper {
+    min-height: 450px;
+    height: calc(100% - 70px);
+  }
+
+  .popup-floating-dialog-container {
+    top: 70%;
+    left: 15%;             
+    width: 70%;
+    padding: 18px 22px 14px 22px;
+    border-radius: 10px;            
+  }
+
+  .popup-page-nav-left,
+  .popup-page-nav-right {
+    width: 45px;
+    height: 45px;
+    left: 3%;
+  }
+
+  .popup-page-nav-right {
+    right: 3%;
+    left: auto;
+  }
+}
+
+@media (max-width: 768px) {
+  :root {
+    --popup-book-width: 90vw;
+    --popup-book-height: 85vh;
+    --popup-book-min-height: 500px;
+  }
+  
+  .popup-flip-book-container {
+    min-height: 400px;
+    transform: 
+      perspective(1005px)   
+      rotateX(20deg)        
+      rotateY(0deg)         
+      translateZ(5.36px)    
+      translateY(-15px);
+  }
+    
+  .popup-book-wrapper {
+    min-height: 350px;
+    height: calc(100% - 60px);
+  }
+
+  .popup-floating-dialog-container {
+    top: 75%;
+    left: 10%;             
+    width: 80%;
+    padding: 16px 20px 12px 20px;
+    border-radius: 8px;            
+  }
+  
+  .popup-floating-dialog-container .story-title {
+    font-size: 16px;
+  }
+  
+  .popup-floating-dialog-container .narration-text,
+  .popup-floating-dialog-container .dialog-text {
+    font-size: 13px;
+  }
+
+  .popup-page-nav-left,
+  .popup-page-nav-right {
+    width: 40px;
+    height: 40px;
+    left: 2%;
+  }
+
+  .popup-page-nav-right {
+    right: 2%;
+    left: auto;
+  }
+
+  .popup-floating-illustration {
+    mask-image: 
+      radial-gradient(ellipse at center, 
+        rgba(0,0,0,1) 15%, 
+        rgba(0,0,0,0.8) 50%, 
+        rgba(0,0,0,0.3) 80%, 
+        rgba(0,0,0,0) 100%
+      );
+      
+    -webkit-mask-image: 
+      radial-gradient(ellipse at center, 
+        rgba(0,0,0,1) 15%, 
+        rgba(0,0,0,0.8) 50%, 
+        rgba(0,0,0,0.3) 80%, 
+        rgba(0,0,0,0) 100%
+      );
+    
+    border-radius: 12px 12px 0 0;
+  }
+
+  .popup-floating-illustration.scene-illustration {
+    border-radius: 16px 16px 0 0;
+  }
+
+  .popup-floating-illustration.character-illustration {
+    border-radius: 14px 14px 0 0;
+  }
+
+  .popup-floating-illustration.object-illustration {
+    border-radius: 14px 14px 0 0;
+  }
+}
+
+@media (max-width: 480px) {
+  :root {
+    --popup-book-width: 95vw;
+    --popup-book-height: 80vh;
+    --popup-book-min-height: 450px;
+  }
+  
+  .popup-floating-dialog-container {
+    top: 75%;
+    left: 5%;              
+    width: 90%;
+    padding: 14px 18px 10px 18px;
+    border-radius: 6px;            
+  }
+  
+  .popup-floating-dialog-container .story-title {
+    font-size: 15px;
+  }
+  
+  .popup-floating-dialog-container .narration-text,
+  .popup-floating-dialog-container .dialog-text {
+    font-size: 12px;
+  }
+
+  .popup-page-nav-left,
+  .popup-page-nav-right {
+    width: 35px;
+    height: 35px;
+    left: 1%;
+  }
+
+  .popup-page-nav-right {
+    right: 1%;
+    left: auto;
+  }
+
+  .popup-floating-illustration {
+    border-radius: 10px 10px 0 0;
+  }
+
+  .popup-floating-illustration.scene-illustration {
+    border-radius: 12px 12px 0 0;
+  }
+
+  .popup-floating-illustration.character-illustration {
+    border-radius: 10px 10px 0 0;
+  }
+
+  .popup-floating-illustration.object-illustration {
+    border-radius: 10px 10px 0 0;
+  }
+}
+
+/* ================== CONTENT CONTAINER TRANSPARENCY FIX ================== */
+.popup-page-left .story-content,
+.popup-page-right .story-content,
+.popup-page-left .page-content,
+.popup-page-right .page-content {
+  background: transparent !important;
+}
+
+/* Ensure page backgrounds remain visible */
+.popup-page-left,
+.popup-page-right {
+  background-color: #E6D7C3 !important;
+}
+
+/* WINDOW RESIZE HANDLER FOR SMOOTH TRANSITIONS */
+.popup-flip-book-container,
+.popup-floating-dialog-container,
+.popup-floating-illustration {
+  transition: all 0.3s ease-in-out !important;
+}
+
+/* FORCE RE-LAYOUT ON SCREEN CHANGE */
+@media screen and (min-device-width: 1920px) {
+  .popup-open-book-wrapper {
+    max-width: none !important;
+    width: 90vw !important;
+  }
+  
+  .popup-flip-book-container {
+    width: 55vw !important;
+    height: 70vh !important;
+  }
+  
+  .popup-floating-dialog-container {
+    top: 76% !important;
+    left: 17% !important;
+    width: 56% !important;
+  }
+}
+
+/* ULTRA-WIDE MONITOR SUPPORT */
+@media screen and (min-aspect-ratio: 21/9) {
+  .popup-flip-book-container {
+    width: 45vw !important;
+    height: 65vh !important;
+  }
+  
+  .popup-floating-dialog-container {
+    top: 78% !important;
+    left: 20% !important;
+    width: 50% !important;
+  }
+}
